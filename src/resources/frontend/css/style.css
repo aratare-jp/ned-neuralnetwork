@@ -1,0 +1,114 @@
+.bar {
+    height: 18px;
+    background: green;
+}
+
+.container-fluid {
+    text-align: center;
+}
+
+.text-center {
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.img-fluid {
+    text-align: center;
+    max-width: 100%;
+    height: auto;
+}
+
+.img-fluid:hover {
+    -webkit-transform: rotate(360deg);
+    -webkit-transition: all 0.3s ease;
+}
+
+/*file button*/
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 10%;
+    min-width: 10%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+}
+
+
+.fileContainer {
+    border-radius: .5em;
+    padding: .5em;
+}
+
+.fileContainer [type=file] {
+    cursor: pointer;
+}
+
+.btn a:hover {
+    text-decoration: none;
+}
+
+#file-upload-form {
+    text-align: center;
+    display: block;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+    nav.navbar.navbar-inverse {
+      margin-bottom: 50px;
+      border-radius: 0;
+        
+    }
+    
+    /* Set height of the grid so .sidenav can be 100%  */
+    .row.content {height: 450px}
+    
+    /* background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: white;
+      height: 100%;
+    }
+
+.navbar li:hover {
+    background-color: #333;
+}
+
+    
+    /* footer background color, white text and some padding */
+    footer.container-fluid.text-center {
+      background-color: #222;
+      color: white;
+      right: 0;
+      left: 0;
+      bottom: -10px;
+      padding: 1rem;
+      position: fixed;
+      margin: 0;
+      grid-row-start: 2;
+      grid-row-end: 3;
+    }
+
+footer img {
+    text-align: center;
+        position: -20px;
+
+}
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }

@@ -1,0 +1,81 @@
+body {
+    background-color: white;
+    font-family: "Lato", sans-serif;
+}
+
+@media only screen and (max-width: 500px) {
+    body {
+        background-color: white;
+    }
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a, input{
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    list-style-type: none;
+}
+
+.sidenav a:hover, .offcanvas a:focus, input:hover{
+    color: #f1f1f1;
+    list-style-type: none;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 40px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+span:hover{
+  color: #f1f1f1;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.container #imgCon
+{
+    /*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);*/
+    margin-left: 25%;
+    margin-right: 25%;
+    max-width: 100%;
+    align-content: center;
+    border: solid 1px;
+    display: none;
+}
+
+#currentImg {
+  width: 100%;
+}
+
+/*Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {
+  #main {
+    margin-left: 0}
+  }

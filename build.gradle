@@ -1,0 +1,195 @@
+import java.nio.file.Files
+import java.nio.file.attribute.PosixFilePermission
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+        classpath group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '3.2.1'
+        localGroovy()
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+apply plugin: 'org.flywaydb.flyway'
+
+group = 'deco3800-deathbydeco'
+archivesBaseName = 'neural-network'
+version = '0.1'
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor(0, 'seconds')
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUNIT
+    compile group: 'junit', name: 'junit', version: '4.12'
+    // DropWizard
+    compile group: 'io.dropwizard', name: 'dropwizard-core', version: '1.0.6'
+    compile group: 'io.dropwizard', name: 'dropwizard-client', version: '1.0.6'
+    compile group: 'io.dropwizard', name: 'dropwizard-jackson', version: '1.0.6'
+    compile group: 'io.dropwizard', name: 'dropwizard-validation', version: '1.0.6'
+    compile group: 'io.dropwizard', name: 'dropwizard-metrics', version: '1.0.6'
+    compile group: 'io.dropwizard', name: 'dropwizard-forms', version: '1.1.0'
+    compile group: 'io.dropwizard', name: 'dropwizard-jdbi', version: '1.1.0'
+    compile group: 'be.tomcools', name: 'dropwizard-websocket-jee7-bundle', version: '1.1.0'
+    // Jersey multi media
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: '2.25.1'
+    // Flyway
+    compile group: 'org.flywaydb', name: 'flyway-gradle-plugin', version: '3.2.1'
+    // Encogg
+    compile group: 'org.encog', name: 'encog-core', version: '3.3.0'
+    // Mysql
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    // Web socket
+    compile group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
+    // Jetty
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-core', version: '9.0.0.M2'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-common', version: '9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-api', version: '9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: '9.4.2.v20170220'
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-servlet', version: '9.4.2.v20170220'
+    // JSON
+    compile group: 'org.json', name: 'json', version: '20160810'
+    // Jchart
+    compile group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-class': 'com.deathbydeco.MainClass'
+    }
+}
+
+// Javadoc Settings
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+javadoc {
+    options.tags = ['require', 'ensure']
+}
+
+flyway {
+    driver = 'com.mysql.cj.jdbc.Driver'
+    url = 'jdbc:mysql://localhost:3306/neural_network?autoReconnect=true&useSSL=false'
+    user = 'deathbydeco'
+    password = 'deco3800'
+    schemas = ['neural_network']
+    locations = ['classpath:db/migration']
+}
+
+task checkForGitHook() {
+    description = 'Check for git hook before building'
+    def path = '.git' + File.separator + 'hooks'
+    // Create hooks folder if not already in place
+    File hookFolder = file(path)
+    if (!hookFolder.exists()) {
+        try {
+            hookFolder.mkdir()
+        } catch (IOException io) {
+            println io
+            throw new GradleException("\nHooks folder failed to create")
+        } catch (Exception other) {
+            println other
+            throw new GradleException("\nUnknown error when creating hooks folder")
+        }
+    }
+    // Create post-commit file
+    path += File.separator + 'pre-push'
+    File gitHook = file(path)
+    if (!gitHook.exists()) {
+        try {
+            gitHook.createNewFile()
+            // Write into post-commit
+            FileWriter fw = null
+            BufferedWriter bw = null
+            try {
+                // Write git hook lines into the file
+                File file = file(path)
+                fw = new FileWriter(file)
+                bw = new BufferedWriter(fw)
+                bw.write("#!/bin/bash\n")
+                bw.write("curl http://deco3800-deathbydeco.uqcloud.net/jenkins/git/notifyCommit?url=https://source.eait.uq.edu.au/git/deco3800-deathbydeco\n")
+                // Change file permission
+                Set<PosixFilePermission> permissions = new HashSet<PosixFilePermission>()
+                permissions.add(PosixFilePermission.GROUP_EXECUTE)
+                permissions.add(PosixFilePermission.OWNER_EXECUTE)
+                permissions.add(PosixFilePermission.GROUP_EXECUTE)
+                Files.setPosixFilePermissions(file.toPath(), permissions)
+            } catch (IOException io) {
+                println io
+                throw new GradleException("Git hook creation failed")
+            } finally {
+                try {
+                    if (bw != null)
+                        bw.close()
+                    if (fw != null)
+                        fw.close()
+                } catch (IOException io) {
+                    println io
+                    throw new GradleException("Fail to close file")
+                }
+            }
+        } catch (IOException io) {
+            println io
+            throw new GradleException("\nHooks folder failed to create")
+        } catch (Exception other) {
+            println other
+            throw new GradleException("Unknown error when creating post-commit")
+        }
+    }
+}
+
+build.dependsOn(shadowJar)
+javadoc.dependsOn(flywayMigrate)
+build.finalizedBy javadoc
+
+task run(type: JavaExec) {
+    description = 'Run the project'
+    main = 'com.deathbydeco.MainClass'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['server', 'configuration.yaml']
+}
+
+task fullRun(dependsOn: [build, flywayMigrate], type: JavaExec) {
+    description = 'Clean and build the project'
+    compileJava.dependsOn(checkForGitHook)
+    checkForGitHook.dependsOn(clean)
+    compileJava.dependsOn(clean)
+    main = 'com.deathbydeco.MainClass'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['server', 'configuration.yaml']
+}
+
+shadowJar {
+    mergeServiceFiles()
+    classifier = null
+}

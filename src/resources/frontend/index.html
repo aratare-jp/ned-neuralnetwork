@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="#home" onclick="openTopic('home')"><b>HOME</b></a>
+                </li>
+                <li><a href="#myopia"
+                       onclick="openTopic('myopia')"><b>MYOPIA</b></a></li>
+                <li><a href="#ned" onclick="openTopic('ned')"><b>NED</b></a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#team" onclick="openTopic('team')"><span
+                        class="glyphicon"></span><b>TEAM</b></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid text-center">
+    <div class="row content">
+        <div class="col-sm-2 sidenav"></div>
+
+        <!--<home page>-->
+
+        <div class="col-sm-8 text-left" id="home">
+
+            <div class="text-center">
+
+                <img src="img/beye.png" class="img-fluid" width="300"
+                     height="300" alt="eye">
+                <h3><b>Slowing Myopia with AI</b></h3>
+
+                <br>
+
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                    <a href="#myopia" onclick="openTopic('myopia')">
+                        <span><b>MYOPIA</b></span></a>
+                </button>
+
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-stats"></i>
+                    <a href="#ned" onclick="openTopic('ned')">
+                        <span><b>NED</b></span></a>
+                </button>
+
+            </div>
+
+
+            <hr>
+        </div>
+
+        <!--<myopia page>-->
+        <div class="col-sm-8 text-left" id="myopia" style="display:none">
+            <h1>Myopia</h1>
+            <p>What is Myopia? It is where the light focuses in front of,
+                instead of on, the retina. Distance objects appear blurry and
+                close objects appear normal.</p>
+
+            <h2>Neural Network</h2>
+            <p>The basic: Neural neworks are typically organized in layers.
+                Layers are made up of a number of interconnected 'nodes' which
+                contain an 'activation function'. Patterns are presented to the
+                network via the 'input layer', which communicates to one or more
+                'hidden layers' where the actual processing is done via a system
+                of weighted 'connections'. The hidden layers then link to an
+                'output layer' where the answer is output as shown in the
+                graphic below.</p>
+
+            <div class="text-center">
+                <img src="img/nn.jpeg" class="img-responsive" width="600"
+                     height="300" alt="neural network">
+            </div>
+            <p>Reference:</p>
+            <h6>Pages.cs.wisc.edu. (n.d.). A Basic Introduction To Neural
+                Networks. [online] Available at:
+                http://pages.cs.wisc.edu/~bolo/shipyard/neural/local.html
+                [Accessed 13 Apr. 2017].</h6>
+            <hr>
+
+        </div>
+
+        <!--<NED page>-->
+        <div class="col-sm-8 text-left" id="ned" style="display:none">
+            <div id="server-status"></div>
+            <div id="upload-progress"></div>
+            <div id="progress">
+                <div class="bar" style="width: 0;"></div>
+            </div>
+            <div id="mean-chart"></div>
+            <div id="server-info"></div>
+            <br>
+            <div id="inputs"></div>
+            <br>
+            <div id="outputs"></div>
+
+            <div class="container">
+                <div id="imgCon"></div>
+            </div>
+
+            <div id="file-upload-form">
+                <!--Select file button-->
+                <label class="fileContainer">
+                    <button class="btn btn-success">
+                        <i class="glyphicon glyphicon-plus"></i>Select files
+                    </button>
+                    <input id="fileupload" type="file" name="files[]" multiple>
+                </label>
+
+                <!--Query button-->
+                <label class="fileContainer">
+                    <button id="query" class="btn btn-primary start">
+                        <i class="glyphicon glyphicon-upload"></i>Query files
+                    </button>
+                </label>
+
+                <!--Cancel button-->
+                <label class="fileContainer">
+                    <button id="cancel" class="btn btn-primary start">
+                        <i class="glyphicon glyphicon-ban-circle"></i>Cancel
+                    </button>
+                </label>
+
+                <!--Reset button-->
+                <label class="fileContainer">
+                    <button id="delete" class="btn btn-danger delete">
+                        <i class="glyphicon glyphicon-trash"></i>Delete
+                    </button>
+                </label>
+
+
+                <!--<input type="checkbox" class="toggle">-->
+            </div>
+            <hr>
+            <span class="fileupload-process"></span>
+            <div class="col-lg-5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-striped active" role="progressbar"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success"
+                         style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress state -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+
+
+        </div>
+
+        <div class="col-sm-8 text-left" id="team" style="display:none">
+            <h1>DeathByDeco</h1>
+
+            <h2>Teams Mission</h2>
+
+            <ul>
+                <li><p>Have a proof of neural network concept working with large
+                    scale data</p></li>
+                <li><p>Have a finalised number of neurons/layers or an educated
+                    estimation</p></li>
+                <li><p>Have a fully automatic machine learning neural network
+                    that learns off the historical unclassified data</p></li>
+                <li><p>Have a small enough wait time that is negligible</p></li>
+                <li><p>Neural Network capable of recognising common patterns in
+                    eye degradation/treatment and diagnosing accordingly</p>
+                </li>
+            </ul>
+
+            <p>Thanks for stopping by!</p>
+
+            <hr>
+        </div>
+
+        <div class="col-sm-2 sidenav"></div>
+    </div>
+
+</div>
+
+<footer class="container-fluid text-center">
+    <p><img src="img/logo.png" width="135" height="55"></p>
+</footer>
+
+<script>
+    function openTopic(topicName) {
+        var i;
+        var x = document.getElementsByClassName("col-sm-8 text-left");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        document.getElementById(topicName).style.display = "block";
+    }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/chart.js"></script>
+
+</body>
