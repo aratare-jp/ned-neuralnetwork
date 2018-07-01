@@ -2,7 +2,7 @@
 ## Introduction
 Ned is the result of a year-long project that aims to help optometrists in Australia by doing the heavy-lifiting of time-consuming tasks such as image classification.
 
-***Note: this repository is the open-source version of Ned without personal information such as patient's images. Whereas all of the functionality exist in the commercial version, only some are present in this open-source version.***
+***Note: this repository was forked from and is the open-source version of Ned without personal information such as patient's images. Whereas all of the functionality exist in the commercial version, only some are present in this open-source version.***
 
 ## Motivation
 Ned was designed to address one of the most significant problems in Australia: lack of experienced optometrists. Specifically, currently when an optometrist designs an optical len for her patients, she would need to go through a large amount of retina images in order to classify them correctly. Whereas this is not a hard task for an experienced optometrist (but is for an inexperienced one), it is extremely time-consuming.
