@@ -22,6 +22,9 @@ This project utilised a wide variety of tools such as:
 
 - Java (Dropwizard, JDBI)
 - Python
+- HTML, CSS, JavaScript
+- Bash
+- YAML
 - Gradle
 - Git
 - Jenkins
